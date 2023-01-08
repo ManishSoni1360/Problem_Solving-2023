@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string s)  {  
+        unordered_map<char, string> mpp;
+        unordered_set<string> store;
+
+        int t = 0, len = s.length();
+        for (char c : pattern) {
+            if (t >= len) return false;
+            string temp = "";
+            while (s[t] != ' ' && t < len) temp += s[t++];
+
+            if (store.find(temp) != store.end()) {
+                if (mpp.find(c) != mpp.end() && mpp[c] != temp) return false;
+            }
+            else {
+                if (mpp.find(c) != mpp.end() && mpp[c] != temp) return false;
+                mpp[c] = temp;
+                store.insert(temp);
+            } t++;
+        }
+        return true;
+    }
+};
